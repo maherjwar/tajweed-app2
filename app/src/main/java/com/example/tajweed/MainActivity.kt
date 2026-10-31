@@ -542,14 +542,14 @@ class Store(c: Context) {
     }
 
     fun markSeen() { seen = true; p.edit().putBoolean("seen", true).apply() }
-    fun setDark(v: Boolean) { dark = v; Pal.dark = v; p.edit().putBoolean("dark", v).apply() }
-    fun setAuto(v: Boolean) { autoPlay = v; p.edit().putBoolean("auto", v).apply() }
-    fun setSpeed(v: Float) { speed = v; p.edit().putFloat("speed", v).apply() }
-    fun setRemind(v: Boolean) {
+    fun changeDark(v: Boolean) { dark = v; Pal.dark = v; p.edit().putBoolean("dark", v).apply() }
+    fun changeAuto(v: Boolean) { autoPlay = v; p.edit().putBoolean("auto", v).apply() }
+    fun changeSpeed(v: Float) { speed = v; p.edit().putFloat("speed", v).apply() }
+    fun changeRemind(v: Boolean) {
         remind = v; p.edit().putBoolean("remind", v).apply()
         if (v) Reminder.schedule(ctx, hour) else Reminder.cancel(ctx)
     }
-    fun setHour(h: Int) {
+    fun changeHour(h: Int) {
         hour = (h + 24) % 24; p.edit().putInt("hour", hour).apply()
         if (remind) Reminder.schedule(ctx, hour)
     }
@@ -909,27 +909,27 @@ fun SettingsScreen(st: Store, onBack: () -> Unit) {
         }
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            SettingRow("الوضع الليلي", "ألوان مريحة للعين في الإضاءة المنخفضة") { Toggle(st.dark) { st.setDark(it) } }
-            SettingRow("التشغيل التلقائي", "تبدأ التلاوة وحدها في أسئلة «استمع واختر»") { Toggle(st.autoPlay) { st.setAuto(it) } }
+            SettingRow("الوضع الليلي", "ألوان مريحة للعين في الإضاءة المنخفضة") { Toggle(st.dark) { st.changeDark(it) } }
+            SettingRow("التشغيل التلقائي", "تبدأ التلاوة وحدها في أسئلة «استمع واختر»") { Toggle(st.autoPlay) { st.changeAuto(it) } }
             Column(Modifier.card(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 T("سرعة التلاوة", 18, FontWeight.Bold)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Chip("٠٫٧٥×", st.speed == 0.75f) { st.setSpeed(0.75f) }
-                    Chip("١×", st.speed == 1f) { st.setSpeed(1f) }
-                    Chip("١٫٢٥×", st.speed == 1.25f) { st.setSpeed(1.25f) }
+                    Chip("٠٫٧٥×", st.speed == 0.75f) { st.changeSpeed(0.75f) }
+                    Chip("١×", st.speed == 1f) { st.changeSpeed(1f) }
+                    Chip("١٫٢٥×", st.speed == 1.25f) { st.changeSpeed(1.25f) }
                 }
             }
             SettingRow("تذكير يومي", "إشعار يذكّرك بدرس اليوم إن لم تنجز درسًا") {
                 Toggle(st.remind) {
-                    st.setRemind(it)
+                    st.changeRemind(it)
                     if (it && Build.VERSION.SDK_INT >= 33) perm.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
             }
             if (st.remind) SettingRow("وقت التذكير") {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Chip("+", false) { st.setHour(st.hour + 1) }
+                    Chip("+", false) { st.changeHour(st.hour + 1) }
                     T(hourText(st.hour), 17, FontWeight.Bold, GreenT)
-                    Chip("−", false) { st.setHour(st.hour - 1) }
+                    Chip("−", false) { st.changeHour(st.hour - 1) }
                 }
             }
         }
