@@ -511,71 +511,71 @@ val audioRefs = mapOf(
     "ن\u0653" to "068001"
 )
 
-// أرقام الكلمات داخل الآية (من 1)، والسالب يُعدّ من آخر الآية: -1 آخر كلمة
-val audioRanges = mapOf(
-    "أَنْعَمْتَ" to (3 to 3),
-    "مَنْ يَقُولُ" to (3 to 4),
-    "مِنْ بَعْدِ" to (5 to 6),
-    "مِنْ شَرِّ" to (1 to 2),
-    "مِنْ وَالٍ" to (-2 to -1),
-    "عَلِيمٌ حَكِيمٌ" to (-2 to -1),
-    "غَفُورٌ رَحِيمٌ" to (-2 to -1),
-    "يَوْمَئِذٍ نَاعِمَةٌ" to (-2 to -1),
-    "سَمِيعٌ بَصِيرٌ" to (-2 to -1),
-    "جَنَّاتٍ تَجْرِي" to (8 to 9),
-    "تَرْمِيهِمْ بِحِجَارَةٍ" to (1 to 2),
-    "لَهُمْ مَا" to (1 to 2),
-    "هُمْ فِيهَا" to (-3 to -2),
-    "عَلَيْهِمْ وَلَا" to (-3 to -2),
-    "السَّمَاءِ" to (4 to 4),
-    "بِمَا أُنْزِلَ" to (3 to 4),
-    "قَالَ" to (2 to 2),
-    "الضَّالِّينَ" to (-1 to -1),
-    "إِنَّا أَعْطَيْنَاكَ" to (1 to 2),
-    "يَدْخُلُونَ" to (3 to 3),
-    "أَحَدْ" to (-1 to -1),
-    "اقْرَأْ" to (1 to 1),
-    "الْفَلَقْ" to (-1 to -1),
-    "الشَّمْسُ" to (1 to 1),
-    "الْقَمَرُ" to (1 to 1),
-    "الرَّحْمَنِ" to (1 to 1),
-    "الْحَمْدُ" to (1 to 1),
-    "النَّاسِ" to (-1 to -1),
-    "ثُمَّ اسْتَوَى" to (9 to 10),
-    "إِنَّ اللَّهَ" to (-6 to -5),
-    "الْجَنَّةَ" to (6 to 6),
-    "الْحَقُّ" to (1 to 1),
-    "رَبِّ الْعَالَمِينَ" to (-2 to -1),
-    "رُزِقُوا" to (14 to 14),
-    "رِجَالٌ" to (1 to 1),
-    "فِرْعَوْنَ" to (5 to 5),
-    "الصِّرَاطَ" to (2 to 2),
-    "قَالَ اللَّهُ" to (1 to 2),
-    "بِسْمِ اللَّهِ" to (1 to 2),
-    "رَسُولُ اللَّهِ" to (2 to 3),
-    "الْحَمْدُ لِلَّهِ" to (1 to 2),
-    "قُلْ هُوَ اللَّهُ" to (1 to 3),
-    "نَسْتَعِينُ" to (-1 to -1),
-    "قُرَيْشٍ" to (-1 to -1),
-    "الرَّحِيمِ" to (-1 to -1),
-    "خَوْفٍ" to (-1 to -1),
-    "مَالُهُ وَمَا" to (-3 to -2),
-    "لَهُ مَا فِي" to (13 to 15),
-    "آمَنُوا" to (3 to 3),
-    "إِيمَانًا" to (-6 to -6),
-    "اذْهَبْ بِكِتَابِي" to (1 to 2),
-    "بَلْ رَفَعَهُ" to (1 to 2),
-    "قَدْ تَبَيَّنَ" to (5 to 6),
-    "اضْرِبْ بِعَصَاكَ" to (6 to 7),
-    "قُلْ رَبِّ" to (1 to 2),
-    "وَدَّتْ طَائِفَةٌ" to (1 to 2),
-    "الْحَاقَّةُ" to (1 to 1),
-    "الطَّامَّةُ" to (3 to 3),
-    "آلْآنَ" to (-5 to -5),
-    "ال\u0653م\u0653" to (1 to 1),
-    "ص\u0653" to (1 to 1),
-    "ق\u0653" to (1 to 1),
-    "ن\u0653" to (1 to 1)
+// مقطع المثال داخل ملف التلاوة بالملّي ثانية (من، إلى). حُسبت من بيانات quran-align لتلاوة العفاسي 128kbps
+val audioClips = mapOf(
+    "أَنْعَمْتَ" to (1590 to 2840),
+    "مَنْ يَقُولُ" to (1790 to 3690),
+    "مِنْ بَعْدِ" to (4100 to 6010),
+    "مِنْ شَرِّ" to (0 to 2240),
+    "مِنْ وَالٍ" to (40470 to 41900),
+    "عَلِيمٌ حَكِيمٌ" to (11650 to 15990),
+    "غَفُورٌ رَحِيمٌ" to (23830 to 27070),
+    "يَوْمَئِذٍ نَاعِمَةٌ" to (1830 to 5040),
+    "سَمِيعٌ بَصِيرٌ" to (13910 to 17770),
+    "جَنَّاتٍ تَجْرِي" to (6150 to 9590),
+    "تَرْمِيهِمْ بِحِجَارَةٍ" to (0 to 4840),
+    "لَهُمْ مَا" to (0 to 2170),
+    "هُمْ فِيهَا" to (33680 to 35480),
+    "عَلَيْهِمْ وَلَا" to (5180 to 6850),
+    "السَّمَاءِ" to (2400 to 4820),
+    "بِمَا أُنْزِلَ" to (2080 to 5470),
+    "قَالَ" to (470 to 1360),
+    "الضَّالِّينَ" to (6520 to 12540),
+    "إِنَّا أَعْطَيْنَاكَ" to (30 to 5190),
+    "يَدْخُلُونَ" to (2510 to 4090),
+    "أَحَدْ" to (1530 to 2520),
+    "اقْرَأْ" to (70 to 940),
+    "الْفَلَقْ" to (1970 to 3090),
+    "الشَّمْسُ" to (0 to 1260),
+    "الْقَمَرُ" to (0 to 1230),
+    "الرَّحْمَنِ" to (0 to 1450),
+    "الْحَمْدُ" to (0 to 1180),
+    "النَّاسِ" to (1940 to 6050),
+    "ثُمَّ اسْتَوَى" to (4960 to 9420),
+    "إِنَّ اللَّهَ" to (22820 to 25090),
+    "الْجَنَّةَ" to (6190 to 7930),
+    "الْحَقُّ" to (0 to 1180),
+    "رَبِّ الْعَالَمِينَ" to (1690 to 5360),
+    "رُزِقُوا" to (14440 to 15570),
+    "رِجَالٌ" to (0 to 1500),
+    "فِرْعَوْنَ" to (3460 to 4780),
+    "الصِّرَاطَ" to (560 to 1850),
+    "قَالَ اللَّهُ" to (60 to 1880),
+    "بِسْمِ اللَّهِ" to (0 to 1530),
+    "رَسُولُ اللَّهِ" to (1710 to 6940),
+    "الْحَمْدُ لِلَّهِ" to (0 to 2020),
+    "قُلْ هُوَ اللَّهُ" to (0 to 1860),
+    "نَسْتَعِينُ" to (2760 to 6510),
+    "قُرَيْشٍ" to (1110 to 4110),
+    "الرَّحِيمِ" to (1120 to 4380),
+    "خَوْفٍ" to (9730 to 10450),
+    "مَالُهُ وَمَا" to (3740 to 5720),
+    "لَهُ مَا فِي" to (13770 to 15170),
+    "آمَنُوا" to (1780 to 2990),
+    "إِيمَانًا" to (11660 to 16520),
+    "اذْهَبْ بِكِتَابِي" to (0 to 2400),
+    "بَلْ رَفَعَهُ" to (0 to 1370),
+    "قَدْ تَبَيَّنَ" to (5620 to 7220),
+    "اضْرِبْ بِعَصَاكَ" to (4170 to 6170),
+    "قُلْ رَبِّ" to (0 to 1250),
+    "وَدَّتْ طَائِفَةٌ" to (40 to 4710),
+    "الْحَاقَّةُ" to (0 to 4590),
+    "الطَّامَّةُ" to (3210 to 7770),
+    "آلْآنَ" to (7970 to 12280),
+    "ال\u0653م\u0653" to (0 to 7300),
+    "ص\u0653" to (0 to 5100),
+    "ق\u0653" to (190 to 5610),
+    "ن\u0653" to (300 to 4380)
 )
 
 class Player {
@@ -585,72 +585,19 @@ class Player {
     var speed = 1f
     var busy by mutableStateOf(false); private set
     var error by mutableStateOf(false); private set
-    var note by mutableStateOf(""); private set
 
     private class Clip(val url: String, val from: Int, val to: Int)
 
-    // يشغّل الكلمات المطلوبة فقط إن توفرت توقيتاتها، وإلا يشغّل الآية كاملة
-    fun play(ref: String, range: Pair<Int, Int>? = null) {
+    // يشغّل المقطع المطلوب (من، إلى بالملّي ثانية) من ملف الآية، وإلا يشغّل الآية كاملة
+    fun play(ref: String, clip: Pair<Int, Int>? = null) {
         stop(); busy = true
         val my = token
-        Thread {
-            var clip: Clip? = null
-            var why = ""
-            if (range != null) try { clip = fetchClip(ref, range) } catch (e: Exception) {
-                why = (e.message ?: e.javaClass.simpleName).take(70)
-            }
-            ui.post {
-                if (token == my) {
-                    note = if (range != null && clip == null) why else ""
-                    val clips = ArrayList<Clip>()
-                    clip?.let { clips.add(it) }
-                    clips.add(Clip("https://verses.quran.com/Alafasy/mp3/$ref.mp3", 0, -1))
-                    clips.add(Clip("https://verses.quran.foundation/Alafasy/mp3/$ref.mp3", 0, -1))
-                    clips.add(Clip("https://everyayah.com/data/Alafasy_128kbps/$ref.mp3", 0, -1))
-                    run(clips, 0, my)
-                }
-            }
-        }.start()
-    }
-
-    private fun fetchClip(ref: String, r: Pair<Int, Int>): Clip {
-        val ch = ref.take(3).toInt(); val v = ref.drop(3).toInt()
-        // fields=segments ضروري، فبدونه لا ترجع الاستجابة بتوقيتات الكلمات
-        val con = URL("https://api.quran.com/api/v4/recitations/7/by_ayah/$ch:$v?fields=segments").openConnection() as HttpURLConnection
-        con.connectTimeout = 6000; con.readTimeout = 6000
-        val f = JSONObject(con.inputStream.bufferedReader().use { it.readText() })
-            .getJSONArray("audio_files").getJSONObject(0)
-        if (!f.has("segments")) throw IllegalStateException("no segments in response")
-        var segs = f.getJSONArray("segments")
-        // بعض الاستجابات تلفّ الأسطر بمصفوفة إضافية
-        if (segs.length() > 0) {
-            val first = segs.get(0)
-            if (first is JSONArray && first.length() > 0 && first.get(0) is JSONArray) segs = first
-        }
-        val rows = (0 until segs.length()).map { k ->
-            val a = segs.getJSONArray(k); (0 until a.length()).map { a.getDouble(it) }
-        }
-        // صيغتان محتملتان: [رقم الكلمة، البداية، النهاية] أو [البداية، المدة، رقم الكلمة من 0]
-        val formatA = rows.isNotEmpty() && rows.withIndex().all { (k, row) -> row.size >= 3 && row[0].toInt() == k + 1 }
-        val words = HashMap<Int, Pair<Double, Double>>()
-        for (row in rows) {
-            if (row.size < 3) continue
-            if (formatA) words[row[0].toInt()] = row[1] to row[2]
-            else { val idx = row[2].toInt(); if (idx >= 0) words[idx + 1] = row[0] to (row[0] + row[1]) }
-        }
-        if (words.isEmpty()) throw IllegalStateException("empty segments")
-        val n = words.keys.maxOrNull() ?: 0
-        val a = if (r.first < 0) n + 1 + r.first else r.first
-        val b = if (r.second < 0) n + 1 + r.second else r.second
-        val s = words[a] ?: throw IllegalStateException("word $a missing (n=$n)")
-        val e = words[b] ?: throw IllegalStateException("word $b missing (n=$n)")
-        val from = (s.first - 120).toInt().coerceAtLeast(0)
-        val to = (e.second + 250).toInt()
-        if (to <= from) throw IllegalStateException("bad range")
-        var url = f.optString("url")
-        if (url.isEmpty()) url = "Alafasy/mp3/$ref.mp3"
-        if (!url.startsWith("http")) url = "https://verses.quran.com/" + url.trimStart('/')
-        return Clip(url, from, to)
+        val clips = ArrayList<Clip>()
+        if (clip != null) clips.add(Clip("https://everyayah.com/data/Alafasy_128kbps/$ref.mp3", clip.first, clip.second))
+        clips.add(Clip("https://everyayah.com/data/Alafasy_128kbps/$ref.mp3", 0, -1))
+        clips.add(Clip("https://verses.quran.com/Alafasy/mp3/$ref.mp3", 0, -1))
+        clips.add(Clip("https://verses.quran.foundation/Alafasy/mp3/$ref.mp3", 0, -1))
+        run(clips, 0, my)
     }
 
     private fun run(clips: List<Clip>, i: Int, my: Int) {
@@ -675,12 +622,16 @@ class Player {
         // في MediaPlayer ضبط سرعة غير صفرية بعد التجهيز يبدأ التشغيل مباشرة
         if (speed != 1f) try { p.playbackParams = PlaybackParams().setSpeed(speed) } catch (e: Exception) { }
         if (!p.isPlaying) p.start()
-        if (c.to > 0) ui.postDelayed({ if (token == my) stop() }, ((c.to - c.from) / speed).toLong())
+        // إن لم ينجح القفز لموضع المقطع نحسب المتبقي من الموضع الفعلي
+        if (c.to > 0) {
+            val left = (c.to - p.currentPosition).coerceAtLeast(300)
+            ui.postDelayed({ if (token == my) stop() }, (left / speed).toLong())
+        }
     }
 
     fun stop() {
         token++; ui.removeCallbacksAndMessages(null)
-        mp?.release(); mp = null; busy = false; error = false; note = ""
+        mp?.release(); mp = null; busy = false; error = false
     }
 }
 
@@ -1372,7 +1323,7 @@ fun LessonScreen(l: Lesson, pl: Player, st: Store, perStar: Int, maxHearts: Int,
         pl.stop()
         pl.speed = st.speed
         queue.getOrNull(step)?.takeIf { it.listen && st.autoPlay }?.let { q ->
-            audioRefs[q.verse]?.let { pl.play(it, audioRanges[q.verse]) }
+            audioRefs[q.verse]?.let { pl.play(it, audioClips[q.verse]) }
         }
     }
     LaunchedEffect(step) { fade.snapTo(0f); fade.animateTo(1f, tween(300)) }
@@ -1439,11 +1390,10 @@ fun LessonScreen(l: Lesson, pl: Player, st: Store, perStar: Int, maxHearts: Int,
                         audioRefs[q.verse]?.let { ref ->
                             Spacer(Modifier.height(8.dp))
                             Box(Modifier.clip(CircleShape).background(if (pl.busy) Gold else Soft)
-                                .clickable { if (pl.busy) pl.stop() else { pl.speed = st.speed; pl.play(ref, audioRanges[q.verse]) } }
+                                .clickable { if (pl.busy) pl.stop() else { pl.speed = st.speed; pl.play(ref, audioClips[q.verse]) } }
                                 .padding(horizontal = 18.dp, vertical = 8.dp)) {
                                 T(if (pl.busy) "⏹ إيقاف" else "🔊 استمع للمثال", 16, FontWeight.Medium, if (pl.busy) Color(0xFF2B2B2B) else GreenT)
                             }
-                            if (pl.note.isNotEmpty()) T("تعذّر اقتطاع المثال فشُغّلت الآية كاملة (${pl.note})", 12, c = Muted, m = Modifier.padding(top = 6.dp))
                             if (pl.error) T("تعذّر التشغيل، تحقق من الاتصال بالإنترنت", 14, c = Red, m = Modifier.padding(top = 6.dp))
                         }
                     }
