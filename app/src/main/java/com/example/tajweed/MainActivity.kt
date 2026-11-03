@@ -31,6 +31,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
@@ -39,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
@@ -57,11 +59,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.math.PI
+import kotlin.math.cos
 import kotlin.math.sin
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.random.Random
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 // ---------- الهوية: ألوان وخط قمرة ----------
 object Pal { var dark by mutableStateOf(false) }
@@ -666,6 +671,8 @@ class Store(c: Context) {
     val done get() = stars.indexOfFirst { it == 0 }.let { if (it < 0) stars.size else it }
     private fun day() = System.currentTimeMillis() / 86_400_000L
     var seen by mutableStateOf(p.getBoolean("seen", false)); private set
+    var account by mutableStateOf(Cloud.email()); private set
+    fun changeAccount(e: String?) { account = e }
 
     private val systemDark = (c.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
     var dark by mutableStateOf(p.getBoolean("dark", systemDark)); private set
@@ -823,9 +830,47 @@ fun Modifier.card() = this.fillMaxWidth().clip(RoundedCornerShape(16.dp)).backgr
     .border(2.dp, Grey, RoundedCornerShape(16.dp)).padding(16.dp)
 
 @Composable
-fun Pill(s: String, c: Color = Color.White) {
-    Box(Modifier.clip(CircleShape).background(Color.White.copy(alpha = 0.16f)).padding(horizontal = 14.dp, vertical = 4.dp)) {
-        T(s, 17, FontWeight.Bold, c)
+fun Pill(s: String, c: Color = Color.White, m: Modifier = Modifier) {
+    Box(m.height(36.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.16f)), Alignment.Center) {
+        BasicText(s, style = TextStyle(fontFamily = Qomra, fontSize = 16.sp, fontWeight = FontWeight.Bold,
+            color = c, textAlign = TextAlign.Center, lineHeight = 22.sp), maxLines = 1, softWrap = false)
+    }
+}
+
+// أزرار الرأس بأيقونات مرسومة بأسلوب موحد: 0 إعدادات، 1 إنجازات، 2 إحصائيات
+@Composable
+fun IconBtn(kind: Int, onClick: () -> Unit) {
+    Box(Modifier.size(40.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.16f)).clickable(onClick = onClick),
+        Alignment.Center) {
+        Canvas(Modifier.size(22.dp)) {
+            val w = size.width
+            val line = Stroke(width = w * 0.09f, cap = StrokeCap.Round)
+            when (kind) {
+                0 -> {
+                    drawCircle(Color.White, w * 0.3f, center, style = line)
+                    drawCircle(Color.White, w * 0.11f, center)
+                    for (i in 0 until 8) {
+                        val a = i * PI / 4
+                        val cx = cos(a).toFloat(); val sy = sin(a).toFloat()
+                        drawLine(Color.White, Offset(center.x + cx * w * 0.36f, center.y + sy * w * 0.36f),
+                            Offset(center.x + cx * w * 0.47f, center.y + sy * w * 0.47f),
+                            strokeWidth = w * 0.12f, cap = StrokeCap.Round)
+                    }
+                }
+                1 -> {
+                    drawCircle(Color.White, w * 0.27f, Offset(w * 0.5f, w * 0.38f), style = line)
+                    drawCircle(Color.White, w * 0.09f, Offset(w * 0.5f, w * 0.38f))
+                    drawLine(Color.White, Offset(w * 0.36f, w * 0.62f), Offset(w * 0.27f, w * 0.94f), strokeWidth = w * 0.09f, cap = StrokeCap.Round)
+                    drawLine(Color.White, Offset(w * 0.64f, w * 0.62f), Offset(w * 0.73f, w * 0.94f), strokeWidth = w * 0.09f, cap = StrokeCap.Round)
+                }
+                else -> {
+                    val r = CornerRadius(w * 0.05f)
+                    drawRoundRect(Color.White, Offset(w * 0.08f, w * 0.52f), Size(w * 0.22f, w * 0.4f), r)
+                    drawRoundRect(Color.White, Offset(w * 0.39f, w * 0.14f), Size(w * 0.22f, w * 0.78f), r)
+                    drawRoundRect(Color.White, Offset(w * 0.7f, w * 0.36f), Size(w * 0.22f, w * 0.56f), r)
+                }
+            }
+        }
     }
 }
 
@@ -920,14 +965,16 @@ fun PopStars(n: Int) {
 // ---------- الشاشات ----------
 class MainActivity : ComponentActivity() {
     private val player = Player()
+    private var store: Store? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val store = Store(this)
-        setContent { CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) { App(store, player) } }
+        val st = Store(this)
+        store = st
+        setContent { CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) { App(st, player) } }
     }
 
-    override fun onStop() { player.stop(); super.onStop() }
+    override fun onStop() { player.stop(); store?.let { Cloud.push(it) }; super.onStop() }
 }
 
 // kind: 0 درس، 1 اختبار وحدة، 2 مراجعة أخطاء، 3 تحدي اليوم، 4 تدريب حر
@@ -951,6 +998,7 @@ fun App(st: Store, pl: Player) {
                     3 -> st.finishChallenge(s)
                     else -> st.practiceDone(s)
                 }
+                Cloud.push(st)
                 run = null
             }
         }
@@ -999,15 +1047,20 @@ fun Home(st: Store, onRun: (Run) -> Unit, onNav: (Int) -> Unit) {
             .clip(RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp))
             .background(Brush.verticalGradient(listOf(GreenDark, Green)))
             .statusBarsPadding().padding(16.dp)) {
-            Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween, Alignment.CenterVertically) {
-                Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                    T("⚙", 26, FontWeight.Bold, Color.White, m = Modifier.clickable { onNav(1) })
-                    T("🏅", 24, FontWeight.Bold, Color.White, m = Modifier.clickable { onNav(2) })
-                    T("📊", 24, FontWeight.Bold, Color.White, m = Modifier.clickable { onNav(3) })
-                }
-                Pill("🔥 ${st.streak}", Color(0xFFFFE08A))
-                Pill("المستوى ${st.xp / 100 + 1}")
-                Pill("⭐ ${st.xp}", Color(0xFFFFE08A))
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                T("تجويد", 24, FontWeight.Bold, Color.White)
+                Spacer(Modifier.weight(1f))
+                IconBtn(2) { onNav(3) }
+                Spacer(Modifier.width(8.dp))
+                IconBtn(1) { onNav(2) }
+                Spacer(Modifier.width(8.dp))
+                IconBtn(0) { onNav(1) }
+            }
+            Spacer(Modifier.height(12.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Pill("🔥 ${st.streak}", Color(0xFFFFE08A), Modifier.weight(1f))
+                Pill("المستوى ${st.xp / 100 + 1}", Color.White, Modifier.weight(1f))
+                Pill("⭐ ${st.xp}", Color(0xFFFFE08A), Modifier.weight(1f))
             }
             Spacer(Modifier.height(12.dp))
             T("الهدف اليومي: ${minOf(st.today, 30)} / 30 نقطة", 14, FontWeight.Medium, Color(0xFFFAF5E9))
@@ -1140,6 +1193,7 @@ fun SettingsScreen(st: Store, onBack: () -> Unit) {
     val perm = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
     val ctx = LocalContext.current
     var msg by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
     Column(Modifier.fillMaxSize().background(Cream)) {
         Row(Modifier.fillMaxWidth().background(Brush.verticalGradient(listOf(GreenDark, Green)))
             .statusBarsPadding().padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -1173,6 +1227,17 @@ fun SettingsScreen(st: Store, onBack: () -> Unit) {
                     Chip("+", false) { st.changeHour(st.hour + 1) }
                     T(hourText(st.hour), 17, FontWeight.Bold, GreenT)
                     Chip("−", false) { st.changeHour(st.hour - 1) }
+                }
+            }
+            Column(Modifier.card(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                T("حساب Google", 18, FontWeight.Bold)
+                if (st.account == null) {
+                    T("سجّل الدخول ليُحفَظ تقدمك في حسابك، وتستعيده على أي جهاز.", 14, c = Muted)
+                    Btn("تسجيل الدخول بحساب Google") { scope.launch { msg = "جارٍ تسجيل الدخول..."; msg = Cloud.signIn(ctx, st) } }
+                } else {
+                    T("مسجّل الدخول: ${st.account}", 15, FontWeight.Medium, GreenT)
+                    Btn("مزامنة الآن") { scope.launch { msg = Cloud.sync(ctx, st) } }
+                    Btn("تسجيل الخروج", Red, Color(0xFFA9322A)) { scope.launch { Cloud.signOut(ctx, st); msg = "تم تسجيل الخروج" } }
                 }
             }
             Column(Modifier.card(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
